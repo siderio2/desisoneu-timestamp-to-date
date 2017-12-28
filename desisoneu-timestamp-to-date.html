@@ -1,0 +1,121 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="desisoneu-timestamp-to-date">
+  <template>
+    <style>
+      :host {
+        display: inline;
+        @apply --dile-timestamp-to-date;
+      }
+    </style>
+    <h1>Timestamp to date by desisoneu</h1>
+    [[date]]
+  </template>
+
+  <script>
+    /**
+     * `desisoneu-timestamp-to-date`
+     * Polymer component that, based on the system timestamp, shows current date in an appropiate human readable style
+     *  
+     * `<dile-timestamp-to-date>`
+     *
+     * ## Polymer Element to display a date
+     *
+     * Polymer component to show a date, in an appropriate format to human read.
+     *
+     * The date to display is entered by setting a timestamp.
+     *
+     * It is also possible to set a format to modify the way the date is shown to the user.
+     *
+     * ```html
+     * <dile-timestamp-to-date
+     *   timestamp="491066777700"
+     *   format="en"
+     * ></dile-timestamp-to-date>
+     * ```
+     *
+     * ## Styling
+     * 
+     * Custom property | Description | Default
+     * ----------------|-------------|---------
+     * --dile-timestamp-to-date | Mixin applied to entire element | {}
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class DesisoneuTimestampToDate extends Polymer.Element {
+      static get is() { return 'desisoneu-timestamp-to-date'; }
+      static get properties() {
+        return {
+          /**
+          * The timestamp (miliseconds) of the date to display
+          * @type {Number}
+          */
+          timestamp: {
+            type: Number,
+          },
+          /**
+          * The formatted date to display
+          * @type {String}
+          */
+          date: {
+            type: String,
+            value: '',
+            readOnly: true,
+            computed: 'timestampToString(timestamp, format)',
+          },
+          /**
+          * The format of the displayed date
+          * Current supported formats: 'en' (default), 'es'
+          * @type {String}
+          */
+          format: {
+            type: String,
+            value: 'en',
+          },
+          /**
+          * Object containing the function to format the date.
+          * It should have one method for each valid format.
+          * The method name must be the same as the respective format property value.
+          * @type {Object}
+          */
+          formatFunctions: {
+            type: Object,
+            readOnly: true,
+            value: function () {
+              return {
+                'es': function (date) {
+                  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                },
+                'en': function (date) {
+                  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+                }
+              };
+            }
+          },
+        };
+      }
+
+      /**
+      * This method converts a timestamp into a formatted, human readable date.
+      * @param {Number} timestamp timestamp to set
+      * @param {String} format format to set ('es', 'en')
+      * @return {String} formated string 
+      */
+      timestampToString(timestamp, format) {
+        if (!timestamp) {
+          return '';
+        }
+        if (!this.formatFunctions[format]) {
+          return 'Invalid format.'
+        }
+        let date = new Date(timestamp);
+        return this.formatFunctions[format](date);
+      }
+
+    }
+
+    window.customElements.define(DesisoneuTimestampToDate.is, DesisoneuTimestampToDate);
+  </script>
+</dom-module>

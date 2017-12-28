@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>desisoneu-timestamp-to-date demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../desisoneu-timestamp-to-date.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic desisoneu-timestamp-to-date demo</h3>
+      <demo-snippet>
+        <template>
+          <desisoneu-timestamp-to-date timestamp='491066777700'></desisoneu-timestamp-to-date>
+        </template>
+      </demo-snippet>
+      <h3>Basic desisoneu-timestamp-to-date demo spanish format</h3>
+      <demo-snippet>
+        <template>
+          <desisoneu-timestamp-to-date timestamp='491066777700' format="es"></desisoneu-timestamp-to-date>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
